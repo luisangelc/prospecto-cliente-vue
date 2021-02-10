@@ -1,24 +1,42 @@
 <template>
   <div id="app">
+    <vue-confirm-dialog></vue-confirm-dialog>
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/" @click.native="accionItemMenu({ocultarInicio: true})" :style="{ display: ocultarInicio ? 'none' : '' }">
+        <button class="btn btn-link">Ir a Inicio</button>
+      </router-link>
+      <router-link to="/cliente" @click.native="accionItemMenu({ocultarInicio: false})" :style="{ display: !ocultarInicio ? 'none' : '' }">
+        <button class="btn btn-primary">Agregar Cliente</button>
+      </router-link>
     </div>
     <router-view/>
   </div>
 </template>
 
+<script>
+import { mapState, mapActions } from "vuex";
+
+export default {
+  computed: {
+    ...mapState(["ocultarInicio"]),
+  },
+  methods: {
+    ...mapActions(["accionItemMenu"]),
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
 #nav {
   padding: 30px;
+  text-align: left;
+  margin-left: 6%;
 }
 
 #nav a {
